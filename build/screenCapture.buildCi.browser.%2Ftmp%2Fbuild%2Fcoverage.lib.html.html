@@ -1,0 +1,2140 @@
+<html lang="en"><head>
+    <title>Code coverage report for node-npmtest-homebridge-hue/node_modules/homebridge-hue/lib/HuePlatform.js</title>
+    <meta charset="utf-8">
+    <style>
+        body, html {
+            margin:0; padding: 0;
+        }
+        body {
+            font-family: Arial, Helvetica;
+            font-size: 10pt;
+        }
+        div.header, div.footer {
+            background: #eee;
+            padding: 1em;
+        }
+        div.header {
+            height: 160px;
+            padding: 0 1em 0 1em;
+            z-index: 100;
+            position: fixed;
+            top: 0;
+            border-bottom: 1px solid #666;
+            width: 100%;
+        }
+        div.footer {
+            border-top: 1px solid #666;
+        }
+        div.body {
+            margin-top: 170px;
+        }
+        div.meta {
+            font-size: 90%;
+            text-align: center;
+        }
+        h1, h2, h3 {
+            font-weight: normal;
+        }
+        h1 {
+            font-size: 12pt;
+        }
+        h2 {
+            font-size: 10pt;
+        }
+        pre {
+            font-family: Menlo, Monaco, Consolas, Courier New, monospace;
+            margin: 0;
+            padding: 0;
+            font-size: 14px;
+            tab-size: 2;
+        }
+
+        div.path { font-size: 110%; }
+        div.path a:link, div.path a:visited { color: #000; }
+        table.coverage { border-collapse: collapse; margin:0; padding: 0 }
+
+        table.coverage td {
+            margin: 0;
+            padding: 0;
+            color: #111;
+            vertical-align: top;
+        }
+        table.coverage td.line-count {
+            width: 50px;
+            text-align: right;
+            padding-right: 5px;
+        }
+        table.coverage td.line-coverage {
+            color: #777 !important;
+            text-align: right;
+            border-left: 1px solid #666;
+            border-right: 1px solid #666;
+        }
+
+        table.coverage td.text {
+        }
+
+        table.coverage td span.cline-any {
+            display: inline-block;
+            padding: 0 5px;
+            width: 40px;
+        }
+        table.coverage td span.cline-neutral {
+            background: #eee;
+        }
+        table.coverage td span.cline-yes {
+            background: #b5d592;
+            color: #999;
+        }
+        table.coverage td span.cline-no {
+            background: #fc8c84;
+        }
+
+        .cstat-yes { color: #111; }
+        .cstat-no { background: #fc8c84; color: #111; }
+        .fstat-no { background: #ffc520; color: #111 !important; }
+        .cbranch-no { background:  yellow !important; color: #111; }
+
+        .cstat-skip { background: #ddd; color: #111; }
+        .fstat-skip { background: #ddd; color: #111 !important; }
+        .cbranch-skip { background: #ddd !important; color: #111; }
+
+        .missing-if-branch {
+            display: inline-block;
+            margin-right: 10px;
+            position: relative;
+            padding: 0 4px;
+            background: black;
+            color: yellow;
+        }
+
+        .skip-if-branch {
+            display: none;
+            margin-right: 10px;
+            position: relative;
+            padding: 0 4px;
+            background: #ccc;
+            color: white;
+        }
+
+        .missing-if-branch .typ, .skip-if-branch .typ {
+            color: inherit !important;
+        }
+
+        .entity, .metric { font-weight: bold; }
+        .metric { display: inline-block; border: 1px solid #333; padding: 0.3em; background: white; }
+        .metric small { font-size: 80%; font-weight: normal; color: #666; }
+
+        div.coverage-summary table { border-collapse: collapse; margin: 3em; font-size: 110%; }
+        div.coverage-summary td, div.coverage-summary table  th { margin: 0; padding: 0.25em 1em; border-top: 1px solid #666; border-bottom: 1px solid #666; }
+        div.coverage-summary th { text-align: left; border: 1px solid #666; background: #eee; font-weight: normal; }
+        div.coverage-summary th.file { border-right: none !important; }
+        div.coverage-summary th.pic { border-left: none !important; text-align: right; }
+        div.coverage-summary th.pct { border-right: none !important; }
+        div.coverage-summary th.abs { border-left: none !important; text-align: right; }
+        div.coverage-summary td.pct { text-align: right; border-left: 1px solid #666; }
+        div.coverage-summary td.abs { text-align: right; font-size: 90%; color: #444; border-right: 1px solid #666; }
+        div.coverage-summary td.file { text-align: right; border-left: 1px solid #666; white-space: nowrap;  }
+        div.coverage-summary td.pic { min-width: 120px !important;  }
+        div.coverage-summary a:link { color: #000; }
+        div.coverage-summary a:visited { color: #333; }
+        div.coverage-summary tfoot td { border-top: 1px solid #666; }
+
+        div.coverage-summary .yui3-datatable-sort-indicator, div.coverage-summary .dummy-sort-indicator {
+            height: 10px;
+            width: 7px;
+            display: inline-block;
+            margin-left: 0.5em;
+        }
+        div.coverage-summary .yui3-datatable-sort-indicator {
+            background: no-repeat scroll 0 0 transparent;
+        }
+        div.coverage-summary .yui3-datatable-sorted .yui3-datatable-sort-indicator {
+            background-position: 0 -20px;
+        }
+        div.coverage-summary .yui3-datatable-sorted-desc .yui3-datatable-sort-indicator {
+            background-position: 0 -10px;
+        }
+
+        .high { background: #b5d592 !important; }
+        .medium { background: #ffe87c !important; }
+        .low { background: #fc8c84 !important; }
+
+        span.cover-fill, span.cover-empty {
+            display:inline-block;
+            border:1px solid #444;
+            background: white;
+            height: 12px;
+        }
+        span.cover-fill {
+            background: #ccc;
+            border-right: 1px solid #444;
+        }
+        span.cover-empty {
+            background: white;
+            border-left: none;
+        }
+        span.cover-full {
+            border-right: none !important;
+        }
+        pre.prettyprint {
+            border: none !important;
+            padding: 0 !important;
+            margin: 0 !important;
+        }
+        .com { color: #999 !important; }
+        .ignore-none { color: #999; font-weight: normal; }
+
+    </style>
+</head>
+<body>
+<div class="header low">
+    <h1 style="font-weight: bold;">
+        <a href="https://github.com/npmtest/node-npmtest-homebridge-hue">npmtest-homebridge-hue (v0.0.1)</a>
+    </h1>
+    <h1>Code coverage report for <span class="entity">node-npmtest-homebridge-hue/node_modules/homebridge-hue/lib/HuePlatform.js</span></h1>
+    <h2>
+        
+        Statements: <span class="metric">6.51% <small>(20 / 307)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        
+        
+        Branches: <span class="metric">0% <small>(0 / 87)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        
+        
+        Functions: <span class="metric">0% <small>(0 / 39)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        
+        
+        Lines: <span class="metric">6.51% <small>(20 / 307)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        
+        Ignored: <span class="metric"><span class="ignore-none">none</span></span> &nbsp;&nbsp;&nbsp;&nbsp;
+    </h2>
+    <div class="path"><a href="../../../../index.html">All files</a> » <a href="index.html">node-npmtest-homebridge-hue/node_modules/homebridge-hue/lib/</a> » HuePlatform.js</div>
+</div>
+<div class="body">
+<pre><table class="coverage">
+<tbody><tr><td class="line-count">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129
+130
+131
+132
+133
+134
+135
+136
+137
+138
+139
+140
+141
+142
+143
+144
+145
+146
+147
+148
+149
+150
+151
+152
+153
+154
+155
+156
+157
+158
+159
+160
+161
+162
+163
+164
+165
+166
+167
+168
+169
+170
+171
+172
+173
+174
+175
+176
+177
+178
+179
+180
+181
+182
+183
+184
+185
+186
+187
+188
+189
+190
+191
+192
+193
+194
+195
+196
+197
+198
+199
+200
+201
+202
+203
+204
+205
+206
+207
+208
+209
+210
+211
+212
+213
+214
+215
+216
+217
+218
+219
+220
+221
+222
+223
+224
+225
+226
+227
+228
+229
+230
+231
+232
+233
+234
+235
+236
+237
+238
+239
+240
+241
+242
+243
+244
+245
+246
+247
+248
+249
+250
+251
+252
+253
+254
+255
+256
+257
+258
+259
+260
+261
+262
+263
+264
+265
+266
+267
+268
+269
+270
+271
+272
+273
+274
+275
+276
+277
+278
+279
+280
+281
+282
+283
+284
+285
+286
+287
+288
+289
+290
+291
+292
+293
+294
+295
+296
+297
+298
+299
+300
+301
+302
+303
+304
+305
+306
+307
+308
+309
+310
+311
+312
+313
+314
+315
+316
+317
+318
+319
+320
+321
+322
+323
+324
+325
+326
+327
+328
+329
+330
+331
+332
+333
+334
+335
+336
+337
+338
+339
+340
+341
+342
+343
+344
+345
+346
+347
+348
+349
+350
+351
+352
+353
+354
+355
+356
+357
+358
+359
+360
+361
+362
+363
+364
+365
+366
+367
+368
+369
+370
+371
+372
+373
+374
+375
+376
+377
+378
+379
+380
+381
+382
+383
+384
+385
+386
+387
+388
+389
+390
+391
+392
+393
+394
+395
+396
+397
+398
+399
+400
+401
+402
+403
+404
+405
+406
+407
+408
+409
+410
+411
+412
+413
+414
+415
+416
+417
+418
+419
+420
+421
+422
+423
+424
+425
+426
+427
+428
+429
+430
+431
+432
+433
+434
+435
+436
+437
+438
+439
+440
+441
+442
+443
+444
+445
+446
+447
+448
+449
+450
+451
+452
+453
+454
+455
+456
+457
+458
+459
+460
+461
+462
+463
+464
+465
+466
+467
+468
+469
+470
+471
+472
+473
+474
+475
+476
+477
+478
+479
+480
+481
+482
+483
+484
+485
+486
+487
+488
+489
+490
+491
+492
+493
+494
+495
+496
+497
+498
+499
+500
+501
+502
+503
+504
+505
+506
+507
+508
+509
+510
+511
+512
+513
+514
+515
+516
+517
+518
+519
+520
+521
+522
+523
+524
+525
+526
+527
+528
+529
+530
+531
+532
+533
+534
+535
+536
+537
+538
+539
+540
+541
+542
+543
+544
+545
+546
+547
+548
+549
+550
+551
+552
+553
+554
+555
+556
+557
+558
+559
+560
+561
+562
+563
+564
+565
+566
+567
+568
+569
+570
+571
+572
+573
+574
+575
+576
+577
+578
+579
+580
+581
+582
+583
+584
+585
+586
+587
+588
+589
+590
+591
+592
+593
+594
+595
+596
+597
+598
+599
+600
+601
+602
+603
+604
+605
+606
+607
+608
+609
+610
+611
+612
+613
+614
+615
+616
+617
+618
+619
+620
+621
+622
+623
+624
+625
+626
+627
+628
+629
+630
+631
+632
+633
+634
+635
+636
+637
+638
+639
+640</td><td class="line-coverage"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">// homebridge-hue/lib/HuePlatform.js
+// Copyright © 2016, 2017 Erik Baauw. All rights reserved.
+//
+// Homebridge plugin for Philips Hue.
+//
+// HuePlatform provides the platform for support Philips Hue bridges and
+// connected devices.  The platform provides discovery of bridges and setting
+// up a heartbeat to poll the bridges.
+//
+// Todo:
+// - Dynamic homebridge accessories.
+// - Store user (bridge password) in context of homebridge accessory for bridge.
+&nbsp;
+'use strict';
+&nbsp;
+const deferred = require('deferred');
+const dgram = require('dgram');
+const request = require('request');
+const util = require('util');
+&nbsp;
+const HueBridgeModule = require('./HueBridge');
+const HueBridge = HueBridgeModule.HueBridge;
+const packageConfig = require('../package.json');
+&nbsp;
+module.exports = {
+  HuePlatform: HuePlatform,
+  setHomebridge: setHomebridge
+};
+&nbsp;
+// Parse a UPnP message into an object
+<span class="fstat-no" title="function not covered">function upnpParseMessage(message) {</span>
+<span class="cstat-no" title="statement not covered">  const obj = {};</span>
+<span class="cstat-no" title="statement not covered">  const lines = message.toString().split('\r\n');</span>
+<span class="cstat-no" title="statement not covered">  if (lines &amp;&amp; lines[0]) {</span>
+<span class="cstat-no" title="statement not covered">    obj.status = lines[0];</span>
+<span class="cstat-no" title="statement not covered">    for (const line in lines) {</span>
+<span class="cstat-no" title="statement not covered">      const fields = lines[line].split(': ');</span>
+<span class="cstat-no" title="statement not covered">      if (fields.length === 2) {</span>
+<span class="cstat-no" title="statement not covered">        obj[fields[0].toLowerCase()] = fields[1];</span>
+      }
+    }
+  }
+<span class="cstat-no" title="statement not covered">  return obj;</span>
+}
+&nbsp;
+<span class="fstat-no" title="function not covered">function toIntBetween(value, minValue, maxValue, defaultValue) {</span>
+<span class="cstat-no" title="statement not covered">  const n = Number(value);</span>
+<span class="cstat-no" title="statement not covered">  if (isNaN(n) || n !== Math.floor(n) || n &lt; minValue || n &gt; maxValue) {</span>
+<span class="cstat-no" title="statement not covered">    return defaultValue;</span>
+  }
+<span class="cstat-no" title="statement not covered">  return n;</span>
+}
+&nbsp;
+// ===== Homebridge ============================================================
+&nbsp;
+let Accessory;
+let Service;
+let Characteristic;
+let homebridgeVersion;
+&nbsp;
+<span class="fstat-no" title="function not covered">function setHomebridge(homebridge) {</span>
+<span class="cstat-no" title="statement not covered">  Accessory = homebridge.platformAccessory;</span>
+<span class="cstat-no" title="statement not covered">  Service = homebridge.hap.Service;</span>
+<span class="cstat-no" title="statement not covered">  Characteristic = homebridge.hap.Characteristic;</span>
+<span class="cstat-no" title="statement not covered">  homebridgeVersion = homebridge.serverVersion;</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered">  Characteristic.ProgrammableSwitchEvent.SINGLE_PRESS = 0;</span>
+<span class="cstat-no" title="statement not covered">  Characteristic.ProgrammableSwitchEvent.DOUBLE_PRESS = 1;</span>
+<span class="cstat-no" title="statement not covered">  Characteristic.ProgrammableSwitchEvent.LONG_PRESS = 2;</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered">  Characteristic.Resource = <span class="fstat-no" title="function not covered">function() {</span></span>
+<span class="cstat-no" title="statement not covered">    Characteristic.call(this, 'Resource', Characteristic.Resource.UUID);</span>
+<span class="cstat-no" title="statement not covered">    this.setProps({</span>
+      format: Characteristic.Formats.STRING,
+      perms: [Characteristic.Perms.READ]
+    });
+<span class="cstat-no" title="statement not covered">    this.value = this.getDefaultValue();</span>
+  };
+<span class="cstat-no" title="statement not covered">  util.inherits(Characteristic.Resource, Characteristic);</span>
+<span class="cstat-no" title="statement not covered">  Characteristic.Resource.UUID = '00000021-0000-1000-8000-656261617577';</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered">  Characteristic.Enabled = <span class="fstat-no" title="function not covered">function() {</span></span>
+<span class="cstat-no" title="statement not covered">    Characteristic.call(this, 'Enabled', Characteristic.Enabled.UUID);</span>
+<span class="cstat-no" title="statement not covered">    this.setProps({</span>
+      format: Characteristic.Formats.BOOL,
+      perms: [Characteristic.Perms.READ, Characteristic.Perms.NOTIFY,
+      	      Characteristic.Perms.WRITE]
+    });
+<span class="cstat-no" title="statement not covered">    this.value = this.getDefaultValue();</span>
+  };
+<span class="cstat-no" title="statement not covered">  util.inherits(Characteristic.Enabled, Characteristic);</span>
+<span class="cstat-no" title="statement not covered">  Characteristic.Enabled.UUID = '00000022-0000-1000-8000-656261617577';</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered">  Characteristic.LastUpdated = <span class="fstat-no" title="function not covered">function() {</span></span>
+<span class="cstat-no" title="statement not covered">    Characteristic.call(this, 'Last Updated', Characteristic.LastUpdated.UUID);</span>
+<span class="cstat-no" title="statement not covered">    this.setProps({</span>
+      format: Characteristic.Formats.STRING,
+      perms: [Characteristic.Perms.READ, Characteristic.Perms.NOTIFY]
+    });
+<span class="cstat-no" title="statement not covered">    this.value = this.getDefaultValue();</span>
+  };
+<span class="cstat-no" title="statement not covered">  util.inherits(Characteristic.LastUpdated, Characteristic);</span>
+<span class="cstat-no" title="statement not covered">  Characteristic.LastUpdated.UUID = '00000023-0000-1000-8000-656261617577';</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered">  Characteristic.Heartrate = <span class="fstat-no" title="function not covered">function() {</span></span>
+<span class="cstat-no" title="statement not covered">    Characteristic.call(this, 'Heartrate', Characteristic.Heartrate.UUID);</span>
+<span class="cstat-no" title="statement not covered">    this.setProps({</span>
+      format: Characteristic.Formats.INT,
+      unit: Characteristic.Units.SECONDS,
+      minValue: 1,
+      maxValue: 30,
+      stepValue: 1,
+      perms: [Characteristic.Perms.READ, Characteristic.Perms.NOTIFY,
+              Characteristic.Perms.WRITE]
+    });
+<span class="cstat-no" title="statement not covered">    this.value = this.getDefaultValue();</span>
+  };
+<span class="cstat-no" title="statement not covered">  util.inherits(Characteristic.Heartrate, Characteristic);</span>
+<span class="cstat-no" title="statement not covered">  Characteristic.Heartrate.UUID = '00000024-0000-1000-8000-656261617577';</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered">  Characteristic.Dark = <span class="fstat-no" title="function not covered">function() {</span></span>
+<span class="cstat-no" title="statement not covered">    Characteristic.call(this, 'Dark', Characteristic.Dark.UUID);</span>
+<span class="cstat-no" title="statement not covered">    this.setProps({</span>
+      format: Characteristic.Formats.BOOL,
+      perms: [Characteristic.Perms.READ, Characteristic.Perms.NOTIFY]
+    });
+<span class="cstat-no" title="statement not covered">    this.value = this.getDefaultValue();</span>
+  };
+<span class="cstat-no" title="statement not covered">  util.inherits(Characteristic.Dark, Characteristic);</span>
+<span class="cstat-no" title="statement not covered">  Characteristic.Dark.UUID = '00000025-0000-1000-8000-656261617577';</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered">  Characteristic.Daylight = <span class="fstat-no" title="function not covered">function() {</span></span>
+<span class="cstat-no" title="statement not covered">    Characteristic.call(this, 'Daylight', Characteristic.Daylight.UUID);</span>
+<span class="cstat-no" title="statement not covered">    this.setProps({</span>
+      format: Characteristic.Formats.BOOL,
+      perms: [Characteristic.Perms.READ, Characteristic.Perms.NOTIFY]
+    });
+<span class="cstat-no" title="statement not covered">    this.value = this.getDefaultValue();</span>
+  };
+<span class="cstat-no" title="statement not covered">  util.inherits(Characteristic.Daylight, Characteristic);</span>
+<span class="cstat-no" title="statement not covered">  Characteristic.Daylight.UUID = '00000026-0000-1000-8000-656261617577';</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered">  Characteristic.Status = <span class="fstat-no" title="function not covered">function() {</span></span>
+<span class="cstat-no" title="statement not covered">    Characteristic.call(this, 'Status', Characteristic.Status.UUID);</span>
+<span class="cstat-no" title="statement not covered">    this.setProps({</span>
+      minValue: 0,
+      maxValue: 255,
+      minStep: 1,
+      format: Characteristic.Formats.INT,
+      perms: [Characteristic.Perms.READ, Characteristic.Perms.NOTIFY,
+              Characteristic.Perms.WRITE]
+    });
+<span class="cstat-no" title="statement not covered">    this.value = this.getDefaultValue();</span>
+  };
+<span class="cstat-no" title="statement not covered">  util.inherits(Characteristic.Status, Characteristic);</span>
+<span class="cstat-no" title="statement not covered">  Characteristic.Status.UUID = '00000027-0000-1000-8000-656261617577';</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered">  Characteristic.AnyOn = <span class="fstat-no" title="function not covered">function() {</span></span>
+<span class="cstat-no" title="statement not covered">    Characteristic.call(this, 'Any On', Characteristic.AnyOn.UUID);</span>
+<span class="cstat-no" title="statement not covered">    this.setProps({</span>
+      format: Characteristic.Formats.BOOL,
+      perms: [Characteristic.Perms.READ, Characteristic.Perms.NOTIFY,
+              Characteristic.Perms.WRITE]
+    });
+<span class="cstat-no" title="statement not covered">    this.value = this.getDefaultValue();</span>
+  };
+<span class="cstat-no" title="statement not covered">  util.inherits(Characteristic.AnyOn, Characteristic);</span>
+<span class="cstat-no" title="statement not covered">  Characteristic.AnyOn.UUID = '00000028-0000-1000-8000-656261617577';</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered">  Characteristic.LastTriggered = <span class="fstat-no" title="function not covered">function() {</span></span>
+<span class="cstat-no" title="statement not covered">    Characteristic.call(</span>
+      this, 'Last Triggered', Characteristic.LastTriggered.UUID
+    );
+<span class="cstat-no" title="statement not covered">    this.setProps({</span>
+      format: Characteristic.Formats.STRING,
+      perms: [Characteristic.Perms.READ, Characteristic.Perms.NOTIFY]
+    });
+<span class="cstat-no" title="statement not covered">    this.value = this.getDefaultValue();</span>
+  };
+<span class="cstat-no" title="statement not covered">  util.inherits(Characteristic.LastTriggered, Characteristic);</span>
+<span class="cstat-no" title="statement not covered">  Characteristic.LastTriggered.UUID = '00000029-0000-1000-8000-656261617577';</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered">  Characteristic.TimesTriggered = <span class="fstat-no" title="function not covered">function() {</span></span>
+<span class="cstat-no" title="statement not covered">    Characteristic.call(</span>
+      this, 'Times Triggered', Characteristic.TimesTriggered.UUID
+    );
+<span class="cstat-no" title="statement not covered">    this.setProps({</span>
+      format: Characteristic.Formats.INT,
+      perms: [Characteristic.Perms.READ, Characteristic.Perms.NOTIFY]
+    });
+<span class="cstat-no" title="statement not covered">    this.value = this.getDefaultValue();</span>
+  };
+<span class="cstat-no" title="statement not covered">  util.inherits(Characteristic.TimesTriggered, Characteristic);</span>
+<span class="cstat-no" title="statement not covered">  Characteristic.TimesTriggered.UUID = '0000002A-0000-1000-8000-656261617577';</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered">  Characteristic.Sensitivity = <span class="fstat-no" title="function not covered">function() {</span></span>
+<span class="cstat-no" title="statement not covered">    Characteristic.call(</span>
+      this, 'Sensitivity', Characteristic.Sensitivity.UUID
+    );
+<span class="cstat-no" title="statement not covered">    this.setProps({</span>
+      format: Characteristic.Formats.UINT8,
+      minValue: 0,
+      maxValue: 2,
+      stepValue: 1,
+      perms: [Characteristic.Perms.READ, Characteristic.Perms.NOTIFY,
+      	      Characteristic.Perms.WRITE]
+    });
+<span class="cstat-no" title="statement not covered">    this.value = this.getDefaultValue();</span>
+  };
+<span class="cstat-no" title="statement not covered">  util.inherits(Characteristic.Sensitivity, Characteristic);</span>
+<span class="cstat-no" title="statement not covered">  Characteristic.Sensitivity.UUID = '0000002B-0000-1000-8000-656261617577';</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered">  Characteristic.Duration = <span class="fstat-no" title="function not covered">function() {</span></span>
+<span class="cstat-no" title="statement not covered">    Characteristic.call(</span>
+      this, 'Duration', Characteristic.Duration.UUID
+    );
+<span class="cstat-no" title="statement not covered">    this.setProps({</span>
+      format: Characteristic.Formats.UINT16,
+      unit: 'm',
+      minValue: 0,
+      maxValue: 120,
+      stepValue: 1,
+      perms: [Characteristic.Perms.READ, Characteristic.Perms.NOTIFY,
+      	      Characteristic.Perms.WRITE]
+    });
+<span class="cstat-no" title="statement not covered">    this.value = this.getDefaultValue();</span>
+  };
+<span class="cstat-no" title="statement not covered">  util.inherits(Characteristic.Duration, Characteristic);</span>
+<span class="cstat-no" title="statement not covered">  Characteristic.Duration.UUID = '0000002C-0000-1000-8000-656261617577';</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered">  Characteristic.Link = <span class="fstat-no" title="function not covered">function() {</span></span>
+<span class="cstat-no" title="statement not covered">    Characteristic.call(</span>
+      this, 'Link', Characteristic.Link.UUID
+    );
+<span class="cstat-no" title="statement not covered">    this.setProps({</span>
+      format: Characteristic.Formats.BOOL,
+      perms: [Characteristic.Perms.READ, Characteristic.Perms.NOTIFY,
+              Characteristic.Perms.WRITE]
+    });
+<span class="cstat-no" title="statement not covered">    this.value = this.getDefaultValue();</span>
+  };
+<span class="cstat-no" title="statement not covered">  util.inherits(Characteristic.Link, Characteristic);</span>
+<span class="cstat-no" title="statement not covered">  Characteristic.Link.UUID = '0000002D-0000-1000-8000-656261617577';</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered">  Characteristic.Touchlink = <span class="fstat-no" title="function not covered">function() {</span></span>
+<span class="cstat-no" title="statement not covered">    Characteristic.call(</span>
+      this, 'Touchlink', Characteristic.Touchlink.UUID
+    );
+<span class="cstat-no" title="statement not covered">    this.setProps({</span>
+      format: Characteristic.Formats.BOOL,
+      perms: [Characteristic.Perms.READ, Characteristic.Perms.NOTIFY,
+              Characteristic.Perms.WRITE]
+    });
+<span class="cstat-no" title="statement not covered">    this.value = this.getDefaultValue();</span>
+  };
+<span class="cstat-no" title="statement not covered">  util.inherits(Characteristic.Touchlink, Characteristic);</span>
+<span class="cstat-no" title="statement not covered">  Characteristic.Touchlink.UUID = '0000002E-0000-1000-8000-656261617577';</span>
+&nbsp;
+  // Custome HomeKit service for Hue bridge resource.
+<span class="cstat-no" title="statement not covered">  Service.Resource = <span class="fstat-no" title="function not covered">function(displayName, subtype) {</span></span>
+<span class="cstat-no" title="statement not covered">    Service.call(this, displayName, Service.Resource.UUID, subtype);</span>
+<span class="cstat-no" title="statement not covered">    this.addCharacteristic(Characteristic.Enabled);</span>
+<span class="cstat-no" title="statement not covered">    this.addOptionalCharacteristic(Characteristic.LastTriggered);</span>
+<span class="cstat-no" title="statement not covered">    this.addOptionalCharacteristic(Characteristic.TimesTriggered);</span>
+<span class="cstat-no" title="statement not covered">    this.addOptionalCharacteristic(Characteristic.StatusActive);</span>
+<span class="cstat-no" title="statement not covered">    this.addOptionalCharacteristic(Characteristic.Resource);</span>
+  };
+<span class="cstat-no" title="statement not covered">  util.inherits(Service.Resource, Service);</span>
+<span class="cstat-no" title="statement not covered">  Service.Resource.UUID = '00000011-0000-1000-8000-656261617577';</span>
+&nbsp;
+  // Custome HomeKit service for a Hue bridge.
+<span class="cstat-no" title="statement not covered">  Service.HueBridge = <span class="fstat-no" title="function not covered">function(displayName, subtype) {</span></span>
+<span class="cstat-no" title="statement not covered">    Service.call(this, displayName, Service.HueBridge.UUID, subtype);</span>
+<span class="cstat-no" title="statement not covered">    this.addCharacteristic(Characteristic.Heartrate);</span>
+<span class="cstat-no" title="statement not covered">    this.addCharacteristic(Characteristic.LastUpdated);</span>
+<span class="cstat-no" title="statement not covered">    this.addOptionalCharacteristic(Characteristic.Link);</span>
+<span class="cstat-no" title="statement not covered">    this.addOptionalCharacteristic(Characteristic.Touchlink);</span>
+  };
+<span class="cstat-no" title="statement not covered">  util.inherits(Service.HueBridge, Service);</span>
+<span class="cstat-no" title="statement not covered">  Service.HueBridge.UUID = '00000012-0000-1000-8000-656261617577';</span>
+&nbsp;
+  // Custom HomeKit service for a CLIPGenericStatus sensor.
+<span class="cstat-no" title="statement not covered">  Service.Status = <span class="fstat-no" title="function not covered">function(displayName, subtype) {</span></span>
+<span class="cstat-no" title="statement not covered">    Service.call(this, displayName, Service.Status.UUID, subtype);</span>
+<span class="cstat-no" title="statement not covered">    this.addCharacteristic(Characteristic.Status);</span>
+  };
+<span class="cstat-no" title="statement not covered">  util.inherits(Service.Status, Service);</span>
+<span class="cstat-no" title="statement not covered">  Service.Status.UUID = '00000013-0000-1000-8000-656261617577';</span>
+&nbsp;
+  // Custom homekit characteristic for Colour Temperature in Kelvin.
+  // Source: as exposed by Nanoleaf and recognised by Elgato's Eve.
+<span class="cstat-no" title="statement not covered">  Characteristic.ColorTemperature = <span class="fstat-no" title="function not covered">function() {</span></span>
+<span class="cstat-no" title="statement not covered">    Characteristic.call(</span>
+      this, 'Color Temperature', Characteristic.ColorTemperature.UUID
+    );
+<span class="cstat-no" title="statement not covered">    this.setProps({</span>
+      format: Characteristic.Formats.INT,
+      unit: 'K',
+      minValue: 2000,
+      maxValue: 6536,
+      stepValue: 1,
+      perms: [Characteristic.Perms.READ, Characteristic.Perms.NOTIFY,
+      	      Characteristic.Perms.WRITE]
+    });
+<span class="cstat-no" title="statement not covered">    this.value = this.getDefaultValue();</span>
+  };
+<span class="cstat-no" title="statement not covered">  util.inherits(Characteristic.ColorTemperature, Characteristic);</span>
+<span class="cstat-no" title="statement not covered">  Characteristic.ColorTemperature.UUID = 'A18E5901-CFA1-4D37-A10F-0071CEEEEEBD';</span>
+&nbsp;
+  // Custom homekit characteristic for Color Temperature in Mired.
+  // Source: as exposed by the Philips Hue bridge v2.
+<span class="cstat-no" title="statement not covered">  Characteristic.CT = <span class="fstat-no" title="function not covered">function() {</span></span>
+<span class="cstat-no" title="statement not covered">    Characteristic.call(</span>
+      this, 'Color Temperature', Characteristic.CT.UUID
+    );
+<span class="cstat-no" title="statement not covered">    this.setProps({</span>
+      format: Characteristic.Formats.INT,
+      unit: 'mired',
+      minValue: 153,
+      maxValue: 500,
+      stepValue: 1,
+      perms: [Characteristic.Perms.READ, Characteristic.Perms.NOTIFY,
+      	      Characteristic.Perms.WRITE]
+    });
+<span class="cstat-no" title="statement not covered">    this.value = this.getDefaultValue();</span>
+  };
+<span class="cstat-no" title="statement not covered">  util.inherits(Characteristic.CT, Characteristic);</span>
+<span class="cstat-no" title="statement not covered">  Characteristic.CT.UUID = 'E887EF67-509A-552D-A138-3DA215050F46';</span>
+&nbsp;
+  // Custom HomeKit characteristic for Unique ID.
+  // Source: as exposed by the Philips Hue bridge.  This characteristic is used
+  // by the Hue app to select the accessories when syncing Hue bridge Room
+  // groups to HomeKit rooms.
+<span class="cstat-no" title="statement not covered">  Characteristic.UniqueID = <span class="fstat-no" title="function not covered">function() {</span></span>
+<span class="cstat-no" title="statement not covered">    Characteristic.call(</span>
+      this, 'Unique ID', Characteristic.UniqueID.UUID
+    );
+<span class="cstat-no" title="statement not covered">    this.setProps({</span>
+      format: Characteristic.Formats.STRING,
+      perms: [Characteristic.Perms.READ]
+    });
+<span class="cstat-no" title="statement not covered">    this.value = this.getDefaultValue();</span>
+  };
+<span class="cstat-no" title="statement not covered">  util.inherits(Characteristic.UniqueID, Characteristic);</span>
+<span class="cstat-no" title="statement not covered">  Characteristic.UniqueID.UUID = 'D8B76298-42E7-5FFD-B1D6-1782D9A1F936';</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered">  HueBridgeModule.setHomebridge(homebridge);</span>
+}
+&nbsp;
+// ===== HuePlatform ===========================================================
+&nbsp;
+<span class="fstat-no" title="function not covered">function HuePlatform(log, config, api) {</span>
+<span class="cstat-no" title="statement not covered">  this.log = log;</span>
+<span class="cstat-no" title="statement not covered">  this.api = api;</span>
+<span class="cstat-no" title="statement not covered">  this.config = {</span>
+    ct: false,
+    excludeSensorTypes: {},
+    groups: false,
+    group0: false,
+    heartrate: 5,
+    hosts: [],
+    lights: false,
+    linkbutton: true,
+    lowBattery: 25,
+    philipsLights: false,
+    rules: false,
+    rooms: false,
+    schedules: false,
+    sensors: false,
+    timeout: 5,
+    users: {},
+    waitTimeResend: 300,
+    waitTimeUpdate: 20,
+    wallSwitch: false
+  };
+<span class="cstat-no" title="statement not covered">  for (const key in config) {</span>
+<span class="cstat-no" title="statement not covered">    const value = config[key];</span>
+<span class="cstat-no" title="statement not covered">    switch (key.toLowerCase()) {</span>
+      case 'ct':
+<span class="cstat-no" title="statement not covered">        this.config.ct = value ? true : false;</span>
+<span class="cstat-no" title="statement not covered">        break;</span>
+      case 'excludesensortypes':
+<span class="cstat-no" title="statement not covered">        if (Array.isArray(value)) {</span>
+<span class="cstat-no" title="statement not covered">          for (const type of value) {</span>
+<span class="cstat-no" title="statement not covered">            this.config.excludeSensorTypes[type] = true;</span>
+          }
+        } else {
+<span class="cstat-no" title="statement not covered">          this.log.error(</span>
+            'config.json: %s: warning: ignoring non-array value', key
+          );
+        }
+<span class="cstat-no" title="statement not covered">        break;</span>
+      case 'groups':
+<span class="cstat-no" title="statement not covered">        this.config.groups = value ? true : false;</span>
+<span class="cstat-no" title="statement not covered">        break;</span>
+      case 'group0':
+<span class="cstat-no" title="statement not covered">        this.config.group0 = value ? true : false;</span>
+<span class="cstat-no" title="statement not covered">        break;</span>
+      case 'heartrate':
+<span class="cstat-no" title="statement not covered">        this.config.heartrate = toIntBetween(</span>
+          value, 1, 30, this.config.heartrate
+        );
+<span class="cstat-no" title="statement not covered">        break;</span>
+      case 'host':
+      case 'hosts':
+<span class="cstat-no" title="statement not covered">        if (Array.isArray(value)) {</span>
+<span class="cstat-no" title="statement not covered">          for (const host of value) {</span>
+<span class="cstat-no" title="statement not covered">            if (host !== '') {</span>
+<span class="cstat-no" title="statement not covered">              this.config.hosts.push(host);</span>
+            }
+          }
+        } else <span class="cstat-no" title="statement not covered">if (value !== '') {</span>
+<span class="cstat-no" title="statement not covered">          this.config.hosts.push(value);</span>
+        }
+<span class="cstat-no" title="statement not covered">        break;</span>
+      case 'lights':
+<span class="cstat-no" title="statement not covered">        this.config.lights = value ? true : false;</span>
+<span class="cstat-no" title="statement not covered">        break;</span>
+      case 'linkbutton':
+<span class="cstat-no" title="statement not covered">        this.config.linkbutton = value ? true : false;</span>
+<span class="cstat-no" title="statement not covered">        break;</span>
+      case 'lowbattery':
+<span class="cstat-no" title="statement not covered">        this.config.lowBattery = toIntBetween(</span>
+          value, 0, 100, this.config.lowBattery
+        );
+<span class="cstat-no" title="statement not covered">        break;</span>
+      case 'name':
+<span class="cstat-no" title="statement not covered">        this.name = value;</span>
+<span class="cstat-no" title="statement not covered">        break;</span>
+      case 'parallelrequests':
+<span class="cstat-no" title="statement not covered">        this.config.parallelRequests = toIntBetween(</span>
+          value, 1, 30, this.config.parallelRequests
+        );
+<span class="cstat-no" title="statement not covered">        break;</span>
+      case 'philipslights':
+<span class="cstat-no" title="statement not covered">        this.config.philipsLights = value ? true : false;</span>
+<span class="cstat-no" title="statement not covered">        break;</span>
+      case 'platform':
+<span class="cstat-no" title="statement not covered">        break;</span>
+      case 'rooms':
+<span class="cstat-no" title="statement not covered">        this.config.rooms = value ? true : false;</span>
+<span class="cstat-no" title="statement not covered">        break;</span>
+      case 'rules':
+<span class="cstat-no" title="statement not covered">        this.config.rules = value ? true : false;</span>
+<span class="cstat-no" title="statement not covered">        break;</span>
+      case 'schedules':
+<span class="cstat-no" title="statement not covered">        this.config.schedules = value ? true : false;</span>
+<span class="cstat-no" title="statement not covered">        break;</span>
+      case 'sensors':
+<span class="cstat-no" title="statement not covered">        this.config.sensors = value ? true : false;</span>
+<span class="cstat-no" title="statement not covered">        break;</span>
+      case 'timeout':
+<span class="cstat-no" title="statement not covered">        this.config.timeout = toIntBetween(</span>
+          value, 5, 30, this.config.timeout
+        );
+<span class="cstat-no" title="statement not covered">        break;</span>
+      case 'users':
+<span class="cstat-no" title="statement not covered">        this.config.users = value;</span>
+<span class="cstat-no" title="statement not covered">        break;</span>
+      case 'waittimeresend':
+<span class="cstat-no" title="statement not covered">        this.config.waitTimeResend = toIntBetween(</span>
+          value, 100, 1000, this.config.waitTimeResend
+        );
+<span class="cstat-no" title="statement not covered">        break;</span>
+      case 'waittimeswitch':
+<span class="cstat-no" title="statement not covered">        this.log.error('config.json: warning: %s: deprecated', key);</span>
+<span class="cstat-no" title="statement not covered">        break;</span>
+      case 'waittimeupdate':
+<span class="cstat-no" title="statement not covered">        this.config.waitTimeUpdate = toIntBetween(</span>
+          value, 0, 500, this.config.waitTimeUpdate
+        );
+<span class="cstat-no" title="statement not covered">        break;</span>
+      case 'wallswitch':
+<span class="cstat-no" title="statement not covered">        this.config.wallSwitch = value ? true : false;</span>
+<span class="cstat-no" title="statement not covered">        break;</span>
+      default:
+<span class="cstat-no" title="statement not covered">        this.log.error('config.json: warning: %s: ignoring unknown key', key);</span>
+    }
+  }
+<span class="cstat-no" title="statement not covered">  this.bridgeMap = {};</span>
+<span class="cstat-no" title="statement not covered">  this.bridges = [];</span>
+<span class="cstat-no" title="statement not covered">  this.log.info(</span>
+    '%s v%s, node %s, homebridge v%s', packageConfig.name,
+    packageConfig.version, process.version, homebridgeVersion
+  );
+}
+&nbsp;
+HuePlatform.prototype.accessories = <span class="fstat-no" title="function not covered">function(callback) {</span>
+<span class="cstat-no" title="statement not covered">  let accessoryList = [];</span>
+<span class="cstat-no" title="statement not covered">  this.findBridges().map(<span class="fstat-no" title="function not covered">function(ipaddress) {</span></span>
+<span class="cstat-no" title="statement not covered">    const bridge = new HueBridge(this, ipaddress);</span>
+<span class="cstat-no" title="statement not covered">    this.bridges.push(bridge);</span>
+<span class="cstat-no" title="statement not covered">    return bridge.accessories();</span>
+  }.bind(this)).map(<span class="fstat-no" title="function not covered">function(list) {</span>
+<span class="cstat-no" title="statement not covered">    for (const a of list) {</span>
+<span class="cstat-no" title="statement not covered">      accessoryList.push(a);</span>
+    }
+  }.bind(this)).then(<span class="fstat-no" title="function not covered">function () {</span>
+<span class="cstat-no" title="statement not covered">    if (accessoryList.length &gt; 0) {</span>
+      // Setup heartbeat.
+<span class="cstat-no" title="statement not covered">      let beat = -1;</span>
+<span class="cstat-no" title="statement not covered">      setInterval(<span class="fstat-no" title="function not covered">function() {</span></span>
+<span class="cstat-no" title="statement not covered">        beat += 1;</span>
+<span class="cstat-no" title="statement not covered">        beat %= 7 * 24 * 3600;</span>
+<span class="cstat-no" title="statement not covered">        for (const bridge of this.bridges) {</span>
+<span class="cstat-no" title="statement not covered">          bridge.heartbeat(beat);</span>
+        }
+      }.bind(this), 1000);
+    }
+<span class="cstat-no" title="statement not covered">    while (accessoryList.length &gt; 99) {</span>
+<span class="cstat-no" title="statement not covered">      const a = accessoryList.pop();</span>
+<span class="cstat-no" title="statement not covered">      this.log.error('too many accessories, ignoring %s', a.name);</span>
+    }
+<span class="cstat-no" title="statement not covered">    callback(accessoryList);</span>
+  }.bind(this))
+  .catch(<span class="fstat-no" title="function not covered">function(err) {</span>
+<span class="cstat-no" title="statement not covered">    if (err.message) {</span>
+<span class="cstat-no" title="statement not covered">      this.log.error(err.message);</span>
+    }
+<span class="cstat-no" title="statement not covered">    callback(null);</span>
+  }.bind(this));
+};
+&nbsp;
+// Return promise to list of ipaddresses of found Hue bridges.
+HuePlatform.prototype.findBridges = <span class="fstat-no" title="function not covered">function() {</span>
+<span class="cstat-no" title="statement not covered">  if (this.config.hosts.length &gt; 0) {</span>
+<span class="cstat-no" title="statement not covered">    const list = [];</span>
+<span class="cstat-no" title="statement not covered">    for (const host of this.config.hosts) {</span>
+<span class="cstat-no" title="statement not covered">      list.push(host);</span>
+    }
+<span class="cstat-no" title="statement not covered">    return deferred(list);</span>
+  }
+<span class="cstat-no" title="statement not covered">  const d = deferred();</span>
+<span class="cstat-no" title="statement not covered">  deferred(this.nupnpSearch(), this.upnpSearch()).then(<span class="fstat-no" title="function not covered">function(lists) {</span></span>
+<span class="cstat-no" title="statement not covered">    const map = {};</span>
+<span class="cstat-no" title="statement not covered">    for (const list of lists) {</span>
+<span class="cstat-no" title="statement not covered">      for (const ip of list) {</span>
+<span class="cstat-no" title="statement not covered">        map[ip] = true;</span>
+      }
+    }
+<span class="cstat-no" title="statement not covered">    d.resolve(Object.keys(map));</span>
+  }.bind(this));
+<span class="cstat-no" title="statement not covered">  return d.promise;</span>
+};
+&nbsp;
+// Get Hue bridges from meethue portal.
+HuePlatform.prototype.nupnpSearch = <span class="fstat-no" title="function not covered">function() {</span>
+<span class="cstat-no" title="statement not covered">  const d = deferred();</span>
+<span class="cstat-no" title="statement not covered">  const list = [];</span>
+<span class="cstat-no" title="statement not covered">  const requestObj = {</span>
+    method: 'GET',
+    url: 'https://www.meethue.com/api/nupnp',
+    timeout: 1000 * this.config.timeout,
+    json: true
+  };
+<span class="cstat-no" title="statement not covered">  this.log.debug('meethue portal: get /api/nupnp');</span>
+<span class="cstat-no" title="statement not covered">  request(requestObj, <span class="fstat-no" title="function not covered">function(err, response, responseBody) {</span></span>
+<span class="cstat-no" title="statement not covered">    if (err) {</span>
+<span class="cstat-no" title="statement not covered">      this.log.error('meethue portal: communication error %s', err.code);</span>
+<span class="cstat-no" title="statement not covered">      return d.reject(err.code);</span>
+    }
+<span class="cstat-no" title="statement not covered">    if (response.statusCode != 200) {</span>
+<span class="cstat-no" title="statement not covered">      this.log.error('meethue portal: status %s', response.statusCode);</span>
+<span class="cstat-no" title="statement not covered">      return d.reject(response.statusCode);</span>
+    }
+<span class="cstat-no" title="statement not covered">    if (responseBody.length === 0) {</span>
+<span class="cstat-no" title="statement not covered">      this.log.info('meethue portal: no bridges registered');</span>
+    } else {
+<span class="cstat-no" title="statement not covered">      for (const bridge of responseBody) {</span>
+<span class="cstat-no" title="statement not covered">        this.log.debug(</span>
+          'meethue portal: found bridge %s at %s',
+          bridge.id.toUpperCase(), bridge.internalipaddress
+        );
+<span class="cstat-no" title="statement not covered">        list.push(bridge.internalipaddress);</span>
+      }
+    }
+<span class="cstat-no" title="statement not covered">    return d.resolve(list);</span>
+  }.bind(this));
+<span class="cstat-no" title="statement not covered">  return d.promise;</span>
+};
+&nbsp;
+// Do a UPnP search for Hue bridges.
+HuePlatform.prototype.upnpSearch = <span class="fstat-no" title="function not covered">function() {</span>
+<span class="cstat-no" title="statement not covered">  const d = deferred();</span>
+<span class="cstat-no" title="statement not covered">  const list = [];</span>
+<span class="cstat-no" title="statement not covered">  const map = {};</span>
+<span class="cstat-no" title="statement not covered">  const upnp = {</span>
+    ipaddress: '239.255.255.250',
+    port: 1900
+  };
+<span class="cstat-no" title="statement not covered">  const socket = dgram.createSocket('udp4');</span>
+<span class="cstat-no" title="statement not covered">  const request = new Buffer([</span>
+    'M-SEARCH * HTTP/1.1',
+    'HOST: ' + upnp.ipaddress + ':' + upnp.port,
+    'MAN: "ssdp:discover"',
+    'MX: 5',
+    'ST: upnp:rootdevice',
+    ''
+  ].join('\r\n'));
+<span class="cstat-no" title="statement not covered">  socket.on('message', <span class="fstat-no" title="function not covered">function(message, rinfo) {</span></span>
+<span class="cstat-no" title="statement not covered">    const response = upnpParseMessage(message);</span>
+<span class="cstat-no" title="statement not covered">    if (</span>
+      response.status === 'HTTP/1.1 200 OK' &amp;&amp;
+      response.st &amp;&amp; response.st === 'upnp:rootdevice' &amp;&amp;
+      response['hue-bridgeid']
+    ) {
+<span class="cstat-no" title="statement not covered">      const ipaddress = rinfo.address;</span>
+<span class="cstat-no" title="statement not covered">      const bridgeid = response['hue-bridgeid'];</span>
+<span class="cstat-no" title="statement not covered">      if (!map[ipaddress]) {</span>
+<span class="cstat-no" title="statement not covered">        this.log.debug(</span>
+          'upnp search: found bridge %s at %s', bridgeid, ipaddress
+        );
+<span class="cstat-no" title="statement not covered">        map[ipaddress] = bridgeid;</span>
+<span class="cstat-no" title="statement not covered">        list.push(ipaddress);</span>
+      }
+    }
+  }.bind(this));
+<span class="cstat-no" title="statement not covered">  socket.on('error', <span class="fstat-no" title="function not covered">function(err) {</span></span>
+<span class="cstat-no" title="statement not covered">    this.log.error('upnp search: error %s', err.code);</span>
+<span class="cstat-no" title="statement not covered">    socket.close();</span>
+<span class="cstat-no" title="statement not covered">    d.resolve(list);</span>
+  }.bind(this));
+<span class="cstat-no" title="statement not covered">  socket.on('listening', <span class="fstat-no" title="function not covered">function() {</span></span>
+<span class="cstat-no" title="statement not covered">    this.log.debug(</span>
+      'upnp search: searching at %s:%d for %d seconds',
+      upnp.ipaddress, upnp.port, this.config.timeout
+    );
+<span class="cstat-no" title="statement not covered">    setTimeout(<span class="fstat-no" title="function not covered">function () {</span></span>
+<span class="cstat-no" title="statement not covered">      socket.close();</span>
+<span class="cstat-no" title="statement not covered">      this.log.debug('upnp search: done');</span>
+<span class="cstat-no" title="statement not covered">      d.resolve(list);</span>
+    }.bind(this), 1000 * this.config.timeout);
+  }.bind(this));
+<span class="cstat-no" title="statement not covered">  socket.send(</span>
+    request, 0, request.length, upnp.port, upnp.ipaddress
+  );
+<span class="cstat-no" title="statement not covered">  return d.promise;</span>
+};
+&nbsp;
+&nbsp;</pre></td></tr>
+</tbody></table></pre>
+</div>
+<div class="footer">
+    <div class="meta">Generated by <a href="https://github.com/kaizhu256/node-utility2" target="_blank">utility2</a> at Fri Apr 21 2017 17:28:12 GMT+0000 (UTC)</div>
+</div>
+
+
+</body></html>
